@@ -1,0 +1,16 @@
+# 运行依赖（板子上实测版本，2026-11-17）
+#
+# 安装：
+#   python3 -m venv .venv
+#   .venv/bin/pip install -r requirements.txt
+#
+# 注：airtest 只被 airlib.py（airweb 的底层）用到，守护三件套不依赖它。
+
+Flask>=3.0,<4
+opencv-python>=4.6
+numpy>=1.24,<2
+airtest>=1.4.3
+
+# adb 不通过 pip 安装，需要系统包：
+#   Debian/Ubuntu: apt install android-sdk-platform-tools
+#   本板路径: /usr/lib/android-sdk/platform-tools/adb
