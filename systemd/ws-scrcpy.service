@@ -1,0 +1,24 @@
+[Unit]
+Description=ws-scrcpy Web (RK3588S, port 8000)
+Documentation=file:///home/sunrise/projects/ws-scrcpy/deploy/board-start.sh
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=sunrise
+WorkingDirectory=/home/sunrise/projects/ws-scrcpy
+# 脚本负责: 缺 node_modules 就装, 缺 dist 就构建, 然后在 dist/ 内启动
+ExecStart=/home/sunrise/projects/ws-scrcpy/deploy/board-start.sh
+Restart=always
+RestartSec=5
+KillSignal=SIGTERM
+TimeoutStopSec=10
+# adb server 由脚本内 adb start-server 拉起
+Environment=PATH=/opt/node20/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+StandardOutput=append:/home/sunrise/projects/ws-scrcpy/logs/web.out
+StandardError=append:/home/sunrise/projects/ws-scrcpy/logs/web.out
+
+[Install]
+WantedBy=multi-user.target

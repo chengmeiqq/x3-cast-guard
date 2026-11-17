@@ -1,0 +1,19 @@
+# 运行时状态，不入库
+state/
+logs/
+*.log
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# 编辑器/系统
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# 本地覆盖
+*.local

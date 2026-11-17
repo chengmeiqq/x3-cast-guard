@@ -1,0 +1,20 @@
+[Unit]
+Description=开机校时（板子 RTC 电池失效，冷启动会掉回 2021）
+# 核心顺序：校时必须在流程之前，否则流程日志全是 2021 的时间
+Before=airtest-autocast.service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/home/sunrise/projects/Airtest
+ExecStart=/home/sunrise/projects/Airtest/timesync.sh
+# 校时失败不能让系统启动卡住；脚本自己有兜底
+SuccessExitStatus=0 1
+TimeoutStartSec=120
+StandardOutput=append:/home/sunrise/projects/Airtest/logs/timesync.log
+StandardError=append:/home/sunrise/projects/Airtest/logs/timesync.log
+
+[Install]
+WantedBy=multi-user.target
